@@ -1,28 +1,37 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
+use App\Handlers\ValidNumber;
 use App\Models\Customer;
-use App\Services\PhoneNumbersService;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Collection;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 class CustomerController extends Controller
 {
-    protected $data;
-    public function __construct(PhoneNumbersService $phoneNumbers)
+    protected $validNumber;
+
+    public function __construct(ValidNumber $validateNums)
     {
-        $this->data = $phoneNumbers;
+        $this->validNumber = $validateNums;
     }
 
-    public function index(Request $request)
-    {
-        [
-            $customers,
-            $countries,
-            $request,
-        ] = $this->data->getData($request);
-        return view('index', compact('customers', 'countries', 'request'));
+    public function index() {
+        $rows = Customer::select('phone')->paginate(10);
+        $numbers = $this->validNumber->validateNumbers($rows);
+        return view('phones.all_numbers', ['numbers' => $numbers]);
+    }
+
+    public function filterPhones(Request $request) {
+
+        $country = $request->country;
+        $state = $request->state;
+        $rows = DB::table('customer')->get();
+        $filtered_numbers = $this->validNumber->validateNumbers($rows);
+//        dd($filtered_numbers);
+        $numbers = array_filter($filtered_numbers->toArray(), function ($row) use ($country, $state) {
+            return ($row->country == $country && $row->state == $state);
+        });
+
+        return view('phones.table', compact('numbers'));
     }
 }

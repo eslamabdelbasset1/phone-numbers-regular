@@ -17,5 +17,9 @@ use Illuminate\Support\Facades\Route;
 //Route::get('/', function () {
 //    return view('welcome');
 //});
-Route::get('/', [CustomerController::class, 'index'])->name('customer.index');
+Route::get('/', [CustomerController::class, 'index'])->name('all-numbers');
+Route::get('/filter', [CustomerController::class, 'filterPhones'])->name('filter-numbers');
+
+
+
 
