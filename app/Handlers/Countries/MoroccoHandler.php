@@ -8,11 +8,12 @@ class MoroccoHandler extends CountryCodeHandler {
     {
         $code = new ValidNumber();
         $country_code = $code->getCountryCode($num);
+        $phoneNumber = $code->getPhoneNumber($num);
         if ($country_code === '212') {
             $num->code = $country_code;
             $num->country = 'Morocco';
             $num->state = preg_match('/\('.$num->code.'\)\ ?[5-9]\d{8}$/', $num->phone) ? 'OK' : 'NOK';
-            $num->phone_num = $num->phone;
+            $num->phone_num = $phoneNumber;
             return $num;
         } else {
             return parent::handle($num);

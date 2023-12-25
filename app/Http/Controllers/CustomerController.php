@@ -27,11 +27,9 @@ class CustomerController extends Controller
         $state = $request->state;
         $rows = DB::table('customer')->get();
         $filtered_numbers = $this->validNumber->validateNumbers($rows);
-//        dd($filtered_numbers);
         $numbers = array_filter($filtered_numbers->toArray(), function ($row) use ($country, $state) {
             return ($row->country == $country && $row->state == $state);
         });
-
         return view('phones.table', compact('numbers'));
     }
 }
