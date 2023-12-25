@@ -7,9 +7,8 @@ class MozambiqueHandler extends CountryCodeHandler {
 
     public function handle($num)
     {
-        $code = new ValidNumber();
-        $country_code = $code->getCountryCode($num);
-        $phoneNumber = $code->getPhoneNumber($num);
+        $country_code = $this->getCountryCode($num);
+        $phoneNumber = $this->getPhoneNumber($num);
         if ($country_code === '258') {
             $num->code = $country_code;
             $num->country = 'Mozambique';
