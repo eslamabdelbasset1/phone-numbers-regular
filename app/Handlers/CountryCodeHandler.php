@@ -2,18 +2,20 @@
 
 namespace App\Handlers;
 
-class CountryCodeHandler
+use App\Contracts\HandlerInterface;
+
+abstract class CountryCodeHandler implements HandlerInterface
 {
-    protected $successor;
-    public function setSuccessor(CountryCodeHandler $handler): void
+    protected $nextHandler;
+    public function setNext(CountryCodeHandler $handler): void
     {
-        $this->successor = $handler;
+        $this->nextHandler = $handler;
     }
 
     public function handle($num)
     {
-        if ($this->successor) {
-            return $this->successor->handle($num);
+        if ($this->nextHandler) {
+            return $this->nextHandler->handle($num);
         }
         return null;
     }

@@ -20,18 +20,18 @@ class ValidNumber
         $ugandaHandlers = new UgandaHandler();
 
         // Add handlers for other countries similarly...
-        $cameroonHandler->setSuccessor($ethiopiaHandler);
-        $ethiopiaHandler->setSuccessor($moroccoHandlers);
-        $moroccoHandlers->setSuccessor($mozambiqueHandlers);
-        $mozambiqueHandlers->setSuccessor($ugandaHandlers);
+        $cameroonHandler->setNext($ethiopiaHandler);
+        $ethiopiaHandler->setNext($moroccoHandlers);
+        $moroccoHandlers->setNext($mozambiqueHandlers);
+        $mozambiqueHandlers->setNext($ugandaHandlers);
         // Set successors for other country handlers similarly...
-        $this->handler = $cameroonHandler;
+        $this->nextHandler = $cameroonHandler;
     }
 
     public function validateNumbers($numbers)
     {
         foreach ($numbers as $num) {
-            $this->handler->handle($num);
+            $this->nextHandler->handle($num);
         }
         return $numbers;
     }
