@@ -1,4 +1,4 @@
-# Phone Numbers Exercise
+# Phone Numbers Task
 This project is a Single Page Application that lists phone numbers from a sample database and filters by country and if it is valid or not.
 
 Phone numbers should be categorized by country, state (valid or not valid), country code and number.
