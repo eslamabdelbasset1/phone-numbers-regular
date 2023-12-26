@@ -8,11 +8,8 @@ use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller
 {
-    protected $validNumber;
-
-    public function __construct(ValidNumber $validateNums)
+    public function __construct(public ValidNumber $validNumber)
     {
-        $this->validNumber = $validateNums;
     }
 
     public function index() {

@@ -2,9 +2,8 @@
 
 namespace App\Handlers;
 
-use App\Contracts\HandlerInterface;
 
-abstract class CountryCodeHandler implements HandlerInterface
+abstract class CountryCodeHandler
 {
     protected $nextHandler;
     public function setNext(CountryCodeHandler $handler): void
